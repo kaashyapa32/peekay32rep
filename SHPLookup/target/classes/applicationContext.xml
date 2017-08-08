@@ -16,7 +16,6 @@
    
     <!-- Base package for checking the annoted classes -->
       <context:component-scan base-package="com.spring"></context:component-scan>
-
       <!-- Configure JDBC Connection-->
 		<bean id="dataSource"
             class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -43,9 +42,18 @@
 			<property name="annotatedClasses">
 			<list>
 				  <value>com.spring.models.Users</value> <!-- Entity classes-->
+				  <value>com.spring.models.UserRole</value> <!-- Entity classes-->
 			</list>
 			</property>
 
       </bean>
+      	<tx:annotation-driven/>
+		<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+      
+      	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
       	  
 </beans>

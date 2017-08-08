@@ -1,21 +1,16 @@
 package com.spring.models;
-import java.util.List;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import javax.persistence.Embeddable;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -34,6 +29,10 @@ public class Users implements Serializable {
 	@Column(name = "user_password")
 	String userPassword;
 	
+	@OneToOne(fetch=FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	@JoinColumn(name="id")
+	private UserRole userRole;
 	public Long getId() {
 		return id;
 	}
@@ -56,6 +55,14 @@ public class Users implements Serializable {
 
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 
